@@ -41,6 +41,35 @@ Input for energy based constraint analysis to get T/W and wing loading:
 
 
 
+Output from energy based constraint analysis with desired Wing area:
+
+                             Weight_TO: 8.4939e+03
+                                    e0: 0.7598
+                                   e30: 0.4479
+                                     e: 0.7286
+                                   K_1: 0.0442
+                                  C_D0: 0.0310
+                                   K_2: -0.0265
+                        Velocity_stall: 31.5405
+                           velocity_TO: 37.8486
+                       Velocity_avg_TO: 26.7630
+                              q_avg_TO: 438.7088
+                                 C_DTO: 0.0613
+                    update_load_factor: 1.5837
+                    Takeoff_constraint: 0.1861
+                      Climb_constraint: 0.1288
+                     Cruise_constraint: 0.0630
+                       Turn_constraint: 0.0753
+    Horizontal_acceleration_constraint: 0.1145
+      Approach_wing_loading_constraint: 1.0444e+03
+                   Wing_loading_x_axis: 1.0358e+03
+                                  q_TO: 877.4177
+                       C_L_required_TO: 1.1806
+                            rho_cruise: 0.7361
+                       velocity_cruise: 79.7320
+
+
+
 Input for stability and empennage conceptual design:
 
                        Wing_area: 8.2000
@@ -56,16 +85,24 @@ Input for stability and empennage conceptual design:
 
 
 
-output for stability and empennage conceptual design:
+output from stability and empennage conceptual design:
 
-                Tail moment arm: 2.4699
-Horizontal stabilizer wing area: 2.219
-     Horizontal stabilizer span: 2.9792
-  Vertical stabilizer wing area: 1.1952
-       Vertical stabilizer span: 1.3829
-      reference wing root chord: 1.2567
-       reference wing tip chord: 0.56552
-    Neutral location located at: 3.2457
+               root_chord: 1.2567
+                tip_chord: 0.5655
+                  MAC_ref: 0.9548
+          Tail_moment_arm: 2.4699
+             HS_Wing_area: 2.2190
+             VS_Wing_area: 1.1952
+                  HS_Span: 2.9792
+                  VS_Span: 1.3829
+              wing_AR_ref: 9.8780
+    tail_lift_curve_slope: 3.8832
+    wing_lift_curve_slope: 5.1385
+                    Y_MAC: 1.9655
+       X_leading_edge_MAC: 2.7030
+                     X_AC: 2.9417
+        downwash_gradient: 0.3312
+                     X_NP: 3.2457
 
 
 
@@ -123,7 +160,7 @@ input for trim, load, and CG:
 
 
 
-output for trim, load, and CG:
+output from trim, load, and CG:
 
                             X_CG: 2.8971
                    static_margin: 0.1243
