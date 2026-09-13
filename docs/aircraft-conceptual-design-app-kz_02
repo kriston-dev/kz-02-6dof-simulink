@@ -72,16 +72,22 @@ Output from energy based constraint analysis with desired Wing area:
 
 Input for stability and empennage conceptual design:
 
-                       Wing_area: 8.2000
-    Horizontal_tail_volume_coeff: 0.7000
-      Vertical_tail_volume_coeff: 0.0400
-                  Cockpit_radius: 0.6500
-       Fuselage_radius_near_tail: 0.2300
-                           AR_HS: 4
-                           AR_VS: 1.6000
-                              TR: 0.4500
-                 tail_efficiency: 0.9000
-                  X_wing_root_LE: 2.6000
+               root_chord: 1.2567
+                tip_chord: 0.5655
+                  MAC_ref: 0.9548
+          Tail_moment_arm: 2.4699
+             HS_Wing_area: 2.2190
+             VS_Wing_area: 1.1952
+                  HS_Span: 2.9792
+                  VS_Span: 1.3829
+              wing_AR_ref: 9.8780
+    tail_lift_curve_slope: 3.8832
+    wing_lift_curve_slope: 5.1385
+                    Y_MAC: 1.9655
+       X_leading_edge_MAC: 2.7030
+                     X_AC: 2.9417
+        downwash_gradient: 0.3312
+                     X_NP: 3.2457
 
 
 
@@ -167,6 +173,7 @@ output from trim, load, and CG:
                             X_NP: 3.0157
                         AFT_X_CG: 2.9203
             wing_pitching_moment: -349.4600
+                       X_tail_AC: 5.4116
                     forward_X_CG: 2.7119
                         CG_range: 0.2084
      elevator_deflection_trimmed: -3.5475
