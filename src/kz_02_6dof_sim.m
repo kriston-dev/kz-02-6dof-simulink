@@ -1,6 +1,6 @@
 %Created by Kriston Rickman
 %Date created: 09/11/2026
-%v1_06
+%v1_07
 %KZ-02 6DOF simulation
 %Notes:
 
