@@ -47,29 +47,31 @@ classdef user_key_inputs < matlab.System
         F = false;
         space = false;
         throttle = 0;
+    end
+
+    properties(Access = private, Transient)
         capture_key_cntrl = [];
     end
 
     methods(Access = protected)
 
-        function setupImpl(input)
+        function setupImpl(obj)
+            obj.throttle = obj.init_throttle;
 
-            input.throttle = input.init_throttle;
-
-            input.capture_key_cntrl = figure( "name", "manual_control", ...
-                "KeyPressFcn", @(~, event)input.key_press(event), ...
-                "KeyReleaseFcn", @(~, event)input.key_release(event));
+            obj.capture_key_cntrl = figure("Name", "manual_control", "NumberTitle", "off");
+            obj.capture_key_cntrl.WindowKeyPressFcn = @(~,event)obj.key_press(event);
+            obj.capture_key_cntrl.WindowKeyReleaseFcn = @(~,event)obj.key_release(event);
         end
 
-        function [user_throttle, user_roll, user_pitch, user_yaw] = stepImpl(input) 
+        function [user_throttle, user_roll, user_pitch, user_yaw] = stepImpl(obj) 
 
-        user_roll = double(input.D) - double(input.A);
+        user_roll = double(obj.D) - double(obj.A);
 
-        user_pitch = double(input.S) - double(input.W);
+        user_pitch = double(obj.S) - double(obj.W);
 
-        user_yaw = double(input.E) - double(input.Q);
+        user_yaw = double(obj.E) - double(obj.Q);
 
-        if input.space
+        if obj.space
 
             user_roll = 0;
             user_pitch = 0;
@@ -77,130 +79,168 @@ classdef user_key_inputs < matlab.System
 
         end
 
-        if input.R
+        if obj.R
 
-            input.throttle = input.throttle + input.throttle_rate .* ...
-                input.user_control_block_update;
-
-        end
-
-        if input.F
-
-            input.throttle = input.throttle - input.throttle_rate .* ...
-                input.user_control_block_update;
+            obj.throttle = obj.throttle + obj.throttle_rate .* ...
+                obj.user_control_block_update;
 
         end
 
-        input.throttle = min(max(input.throttle,0),1);
+        if obj.F
+
+            obj.throttle = obj.throttle - obj.throttle_rate .* ...
+                obj.user_control_block_update;
+
+        end
+
+        obj.throttle = min(max(obj.throttle,0),1);
         %from 0 to 1. We need to keep throttle
         % between the limits just like our 2DOF
 
-        user_throttle = input.throttle;
+        user_throttle = obj.throttle;
 
         end
 
-    function releaseImpl(input)
+    function releaseImpl(obj)
 
-        if isgraphics(input.capture_key_cntrl)
+        if isgraphics(obj.capture_key_cntrl)
 
-            delete(input.capture_key_cntrl);
+            delete(obj.capture_key_cntrl);
 
         end
 
     end
 
-    function sts = getSampleTimeImpl(input)
+    function sts = getSampleTimeImpl(obj)
 
-        sts = createSampleTime(input, 'Type', 'Discrete', ...
-            'SampleTime', input.user_control_block_update);
+        sts = createSampleTime(obj, 'Type', 'Discrete', ...
+            'SampleTime', obj.user_control_block_update);
 
     end
+
+    function [sz1,sz2,sz3,sz4] = getOutputSizeImpl(~)
+
+        sz1 = [1 1];
+        sz2 = [1 1];
+        sz3 = [1 1];
+        sz4 = [1 1];
+
+    end
+
+    function [dt1,dt2,dt3,dt4] = getOutputDataTypeImpl(~)
+
+        dt1 = "double";
+        dt2 = "double";
+        dt3 = "double";
+        dt4 = "double";
+
+    end
+
+    function [fs1,fs2,fs3,fs4] = isOutputFixedSizeImpl(~)
+
+        fs1 = true;
+        fs2 = true;
+        fs3 = true;
+        fs4 = true;
+    
+    end
+
+    function [c1,c2,c3,c4] = isOutputComplexImpl(~)
+
+        c1 = false;
+        c2 = false;
+        c3 = false;
+        c4 = false;
+    
+    end
+
 end
 
     methods(Access = private)
 
-        function key_press(input,event)
+        function key_press(obj,event)
+            disp("KEY PRESSED: " + event.Key)
 
             switch event.Key
 
                 case "w"
                   
-                    input.W = true;
+                    obj.W = true;
 
                 case "s"
                   
-                    input.S = true;
+                    obj.S = true;
 
                 case "a"
                   
-                    input.A = true;
+                    obj.A = true;
 
                 case "d"
                    
-                    input.D = true;
+                    obj.D = true;
 
                 case "q"
                    
-                    input.Q = true;
+                    obj.Q = true;
 
                 case "e"
                   
-                    input.E = true;
+                    obj.E = true;
 
                 case "r"
                 
-                    input.R = true;
+                    obj.R = true;
 
                 case "f"
             
-                    input.F = true;
+                    obj.F = true;
 
                 case "space"
 
-                    input.space = true;
+                    obj.space = true;
 
             end
 
         end
 
-        function key_release(input,event)
+        function key_release(obj,event)
 
             switch event.Key
 
                 case "w"
 
-                    input.W = false;
+                    obj.W = false;
 
                 case "s"
 
-                    input.S = false;
+                    obj.S = false;
 
                 case "a"
 
-                    input.A = false;
+                    obj.A = false;
 
                 case "d"
 
-                    input.D = false;
+                    obj.D = false;
 
                 case "q"
 
-                    input.Q = false;
+                    obj.Q = false;
 
                 case "e"
 
-                    input.E = false;
+                    obj.E = false;
 
                 case "r"
 
-                    input.R = false;
+                    obj.R = false;
 
                 case "f"
 
-                    input.F = false;
+                    obj.F = false;
 
                 case "space"
-                    input.space = false;
+                    obj.space = false;
 
             end
 
