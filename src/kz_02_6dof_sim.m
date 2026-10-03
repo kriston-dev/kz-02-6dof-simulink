@@ -1,6 +1,6 @@
 %Created by Kriston Rickman
 %Date created: 09/11/2026
-%v1_07
+%v1_08
 %KZ-02 6DOF simulation
 %Notes:
 
@@ -389,22 +389,22 @@ user_input.Baggage_mass = 25;
 
 user_input.X_baggage = 4.4500;
 
-%mass all in an array
+%Arrays to hold aircraft mass and location
+user_input.massArray = [user_input.Propeller_mass; user_input.Engine_mass; ...
+    user_input.Fuselage_mass; user_input.Wing_mass; user_input.HS_mass; ...
+    user_input.VS_mass; user_input.Landing_nose_gear_mass; ...
+    user_input.Landing_main_gear_mass; user_input.Avionics_mass; ...
+    user_input.Battery_mass; user_input.Fuel_mass; user_input.Pilot_mass; ...
+    user_input.Front_passenger_mass; user_input.Rear_passenger_mass; ...
+    user_input.Baggage_mass];
 
-user_input.massArray = [user_input.Propeller_mass, user_input.Engine_mass, ...
-user_input.Fuselage_mass, user_input.Wing_mass, user_input.HS_mass, ...
-user_input.VS_mass, user_input.Landing_nose_gear_mass, ...
-user_input.Landing_main_gear_mass, user_input.Avionics_mass, ...
-user_input.Battery_mass, user_input.Fuel_mass, user_input.Pilot_mass, ...
-user_input.Front_passenger_mass, user_input.Rear_passenger_mass, ...
-user_input.Baggage_mass];
-
-user_input.xArray = [user_input.X_propeller, user_input.X_engine, user_input.X_fuselage, ...
-user_input.X_wing, user_input.X_HS, user_input.X_VS, ...
-user_input.X_nose_landing_gear, user_input.X_main_landing_gear, ...
-user_input.X_avionics, user_input.X_battery, user_input.X_fuel, ...
-user_input.X_pilot, user_input.X_front_passenger, ...
-user_input.X_rear_passenger, user_input.X_baggage];
+user_input.xArray = [user_input.X_propeller; user_input.X_engine;
+    user_input.X_fuselage; user_input.X_wing; user_input.X_HS;
+    user_input.X_VS; user_input.X_nose_landing_gear;
+    user_input.X_main_landing_gear; user_input.X_avionics;
+    user_input.X_battery; user_input.X_fuel; user_input.X_pilot;
+    user_input.X_front_passenger; user_input.X_rear_passenger; 
+    user_input.X_baggage];
 
 %The total mass
 user_input.total_mass = sum(user_input.massArray);
@@ -531,8 +531,9 @@ user_input.HS_span = 1.4659;
 
 user_input.HS_chord = 0.1466;
 
-%general var
+%General formulas
 user_input.Gravity = 9.80665;
+
 
 %Here I will give users option to choose manual or autopilot control
 currState = States.MANUAL_CONTROL_SIM;
